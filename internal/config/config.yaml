@@ -1,0 +1,8 @@
+app:
+  port: :4040
+db:
+  user: myuser
+  password: mypassword
+  ip: localhost
+  port: 5432
+  name: CoursePlatform

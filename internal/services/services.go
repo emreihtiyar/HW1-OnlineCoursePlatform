@@ -1,15 +1,16 @@
 package services
 
 import (
+	"HW1-OnlineCoursePlatform/internal/handlers"
+	"HW1-OnlineCoursePlatform/internal/models"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"internal/handlers"
-	"internal/models"
 	"net/http"
+	"time"
 )
 
-// encode
+// encode writes the given parameter to the response writer.
 func encode[T any](w http.ResponseWriter, r *http.Request, status int, v T) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
@@ -19,7 +20,7 @@ func encode[T any](w http.ResponseWriter, r *http.Request, status int, v T) erro
 	return nil
 }
 
-// decode
+// decode returns the given parameter.
 func decode[T any](r *http.Request) (T, error) {
 	var v T
 	if err := json.NewDecoder(r.Body).Decode(&v); err != nil {
@@ -28,34 +29,53 @@ func decode[T any](r *http.Request) (T, error) {
 	return v, nil
 }
 
-// handleParameters returns the given parameter.
-func handleParameters(r *http.Request, parameter string) string {
+// GetURIParam function to extract a parameter from the request's URI
+func GetURIParam(r *http.Request, param string) string {
+	return r.URL.Query().Get(param)
+}
+
+// getId function to extract the ID from the request's URL
+func getId(w http.ResponseWriter, r *http.Request) string {
+	// Extracts the variables from the request
 	vars := mux.Vars(r)
-	param := vars[parameter]
-	return param
+	id := vars["id"] // Get the ID from the URL
+	return id
 }
 
-func GetUser(w http.ResponseWriter, r *http.Request) {
-	if !isRequestMethodValid(w, r, http.MethodGet) {
+func GetStudentById(w http.ResponseWriter, r *http.Request) {
+	id := getId(w, r)
+	entity, err := handlers.GetById(id, "Student")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	request := parseRequest(w, readBody(w, r))
-	// TODO: This conversion can be achieved with pointers probably.
-	handlers.Get(models.Login{
-		Username: request.Username,
-		Password: request.Password,
-	})
-
+	if entity == nil {
+		http.Error(w, "Entity not found", http.StatusNotFound)
+		return
+	}
+	encode(w, r, http.StatusOK, entity)
 }
 
-func AddUser(w http.ResponseWriter, r *http.Request) {
-	if !isRequestMethodValid(w, r, http.MethodPost) {
+func AddStudent(w http.ResponseWriter, r *http.Request) {
+	// Decode JSON body into a Student object
+	student, err := decode[models.Student](r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	request := parseRequest(w, readBody(w, r))
-	// TODO: This does not insert.
-	handlers.Insert(models.Login{
-		Username: request.Username,
-		Password: request.Password,
-	})
+
+	student.ID = models.GenerateULID()
+	if student.RegistryDate == nil {
+		now := time.Now()           // Get the current time
+		student.RegistryDate = &now // Assign the address of now to registryDate
+	}
+	err = handlers.Insert(student)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Responding with the inserted student data or ID
+	w.WriteHeader(http.StatusCreated)
+	fmt.Fprintf(w, "Inserted student with ID: %s\n", student.ID)
 }
