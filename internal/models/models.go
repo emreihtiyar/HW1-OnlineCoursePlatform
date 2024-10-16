@@ -29,7 +29,7 @@ type Instructor struct {
 	Email        string     `json:"email"`
 	Password     string     `json:"password"`
 	RegistryDate *time.Time `json:"registrydate,omitempty" gorm:"column:registrydate"`
-	Expertise    string     `json:"expertise"`
+	Expertise    string     `json:"expertise" gorm:"column:areaofexpertise"`
 }
 
 // Course Struct for Course
@@ -37,15 +37,20 @@ type Course struct {
 	ID           string     `gorm:"primaryKey"`
 	Title        string     `json:"title"`
 	Description  string     `json:"description"`
-	Date         *time.Time `json:"registrydate,omitempty" gorm:"column:registrydate"`
-	InstructorID string
+	Date         *time.Time `json:"registrydate,omitempty" gorm:"column:coursedate"`
+	InstructorID string     `gorm:"column:instructorid"`
 }
 
 // Enrollment struct for Enrollment table. This struct is used to represent a row in the Enrollment table
 type Enrollment struct {
 	ID             string     `gorm:"primaryKey"`
-	StudentID      string     `json:"student_id"`
-	CourseID       string     `json:"course_id"`
-	EnrollmentDate *time.Time `json:"registrydate,omitempty" gorm:"column:registrydate"`
+	StudentID      string     `json:"student_id" gorm:"column:studentid"`
+	CourseID       string     `json:"course_id" gorm:"column:courseid"`
+	EnrollmentDate *time.Time `json:"registrydate,omitempty" gorm:"column:enrollmentdate"`
 	Grade          int        `json:"grade"`
+}
+
+type InstructorCourses struct {
+	Instructor Instructor `json:"instructor"`
+	Courses    []Course   `json:"courses"`
 }

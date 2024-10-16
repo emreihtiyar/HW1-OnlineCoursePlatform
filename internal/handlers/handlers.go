@@ -48,6 +48,14 @@ func GetById(Id string, entityName string) (interface{}, error) {
 	return nil, fmt.Errorf("Entity not found")
 }
 
+func GetAll(entity interface{}) error {
+	result := db.Find(entity)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
 // Insert function to add a new record to the database
 func Insert(entity interface{}) error {
 	result := db.Create(entity)
@@ -55,4 +63,31 @@ func Insert(entity interface{}) error {
 		return result.Error
 	}
 	return nil
+}
+
+// Update function to update a record in the database
+func Update(entity interface{}) error {
+	result := db.Save(entity)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+// Delete function to delete a record from the database
+func Delete(entity interface{}) error {
+	result := db.Delete(entity)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func GetCoursesByInstructorId(instructorId string) ([]models.Course, error) {
+	var courses []models.Course
+	result := db.Where("instructorid = ?", instructorId).Find(&courses)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return courses, nil
 }

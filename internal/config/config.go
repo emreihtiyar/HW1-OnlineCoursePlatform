@@ -37,6 +37,7 @@ type Conf struct {
 		Ip       string `yaml:"ip"`
 		Port     int    `yaml:"port"`
 		DbName   string `yaml:"name"`
+		Active   bool   `yaml:"active"`
 	} `yaml:"db"`
 }
 
@@ -66,14 +67,17 @@ func (c *Conf) GetConf() *Conf {
 
 func (c *Conf) InitDatabase() *gorm.DB {
 	var err error
-	dbConnector := GetDbConnector(*c)
+	if c.DB.Active {
+		dbConnector := GetDbConnector(*c)
 
-	db, err = gorm.Open(postgres.Open(dbConnector.Connector()), &gorm.Config{})
-	if err != nil {
-		log.Fatal("Failed to connect to database:", err)
+		db, err = gorm.Open(postgres.Open(dbConnector.Connector()), &gorm.Config{})
+		if err != nil {
+			log.Fatal("Failed to connect to database:", err)
+		}
+
+		db.AutoMigrate(&models.Student{}, &models.Course{}, &models.Enrollment{}, &models.Instructor{})
+		fmt.Println("Database connected!")
+		return db
 	}
-
-	db.AutoMigrate(&models.Student{}, &models.Course{}, &models.Enrollment{}, &models.Instructor{})
-	fmt.Println("Database connected!")
-	return db
+	return nil
 }

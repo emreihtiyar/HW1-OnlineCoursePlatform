@@ -6,3 +6,4 @@ db:
   ip: localhost
   port: 5432
   name: CoursePlatform
+  active: true

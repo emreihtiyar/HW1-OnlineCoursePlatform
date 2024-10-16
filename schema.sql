@@ -29,8 +29,8 @@ CREATE TABLE Courses (
                          FOREIGN KEY (InstructorID) REFERENCES Instructors(ID)
 );
 
--- Table for Enrollment
-CREATE TABLE Enrollment (
+-- Table for Enrollments
+CREATE TABLE Enrollments (
                             ID CHAR(26) PRIMARY KEY,
                             StudentID CHAR(26),
                             CourseID CHAR(26),
