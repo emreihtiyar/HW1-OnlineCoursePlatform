@@ -1,0 +1,1120 @@
+{
+	"info": {
+		"_postman_id": "6ec656ba-ef7e-425f-842a-024b34f55bdf",
+		"name": "CoursePlatform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16672814"
+	},
+	"item": [
+		{
+			"name": "Postgres",
+			"item": [
+				{
+					"name": "Enrollments",
+					"item": [
+						{
+							"name": "GetEnrollments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/enrollments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"enrollments"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetEnrollments",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/enrollments",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"enrollments"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 20:37:05 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "170"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"ID\": \"01JABGRNNF8QWPD3NEEA9EZYKV\",\n        \"student_id\": \"01JA8YY3SBJXC3ATS529Q5YSSH\",\n        \"course_id\": \"01JABDKH7X7P70KM9ZX5NW4BNP\",\n        \"registrydate\": \"2024-10-16T00:00:00Z\",\n        \"grade\": 90\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "GetEnrollment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/enrollments/01JABGRNNF8QWPD3NEEA9EZYKV",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"enrollments",
+										"01JABGRNNF8QWPD3NEEA9EZYKV"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetEnrollment",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/enrollments/01JABGRNNF8QWPD3NEEA9EZYKV",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"enrollments",
+												"01JABGRNNF8QWPD3NEEA9EZYKV"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 20:37:31 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "168"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"ID\": \"01JABGRNNF8QWPD3NEEA9EZYKV\",\n    \"student_id\": \"01JA8YY3SBJXC3ATS529Q5YSSH\",\n    \"course_id\": \"01JABDKH7X7P70KM9ZX5NW4BNP\",\n    \"registrydate\": \"2024-10-16T00:00:00Z\",\n    \"grade\": 90\n}"
+								}
+							]
+						},
+						{
+							"name": "AddEnrollment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/enrollments/student/{studentId}/course/{courseId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"enrollments",
+										"student",
+										"{studentId}",
+										"course",
+										"{courseId}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "AddEnrollment",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Grade\": 90\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/enrollments/student/01JA8YY3SBJXC3ATS529Q5YSSH/course/01JABDKH7X7P70KM9ZX5NW4BNP",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"enrollments",
+												"student",
+												"01JA8YY3SBJXC3ATS529Q5YSSH",
+												"course",
+												"01JABDKH7X7P70KM9ZX5NW4BNP"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 20:37:01 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "56"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Inserted enrollment with ID: 01JABGRNNF8QWPD3NEEA9EZYKV\n"
+								}
+							]
+						},
+						{
+							"name": "UpdateEnrollment",
+							"request": {
+								"method": "PUT",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Courses",
+					"item": [
+						{
+							"name": "GetCourses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"courses"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetCourses",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/courses",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"courses"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:42:13 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "174"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"ID\": \"01JABDKH7X7P70KM9ZX5NW4BNP\",\n        \"title\": \"A good course\",\n        \"description\": \"A good course\",\n        \"registrydate\": \"2024-10-16T00:00:00Z\",\n        \"InstructorID\": \"01JABCT3W4G5YQFF690N3M2MKG\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "GetCourse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/courses/01JABDKH7X7P70KM9ZX5NW4BNP",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"courses",
+										"01JABDKH7X7P70KM9ZX5NW4BNP"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetCourse",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/courses/01JABDKH7X7P70KM9ZX5NW4BNP",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"courses",
+												"01JABDKH7X7P70KM9ZX5NW4BNP"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:42:39 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "172"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"ID\": \"01JABDKH7X7P70KM9ZX5NW4BNP\",\n    \"title\": \"A good course\",\n    \"description\": \"A good course\",\n    \"registrydate\": \"2024-10-16T00:00:00Z\",\n    \"InstructorID\": \"01JABCT3W4G5YQFF690N3M2MKG\"\n}"
+								}
+							]
+						},
+						{
+							"name": "AddCourse",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Title\": \"A good course\",\r\n    \"Description\": \"A good course\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4040/courses/01JABCT3W4G5YQFF690N3M2MKG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"courses",
+										"01JABCT3W4G5YQFF690N3M2MKG"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "AddCourse",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Title\": \"A good course\",\r\n    \"Description\": \"A good course\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/courses/01JABCT3W4G5YQFF690N3M2MKG",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"courses",
+												"01JABCT3W4G5YQFF690N3M2MKG"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:41:47 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "52"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Inserted course with ID: 01JABDKH7X7P70KM9ZX5NW4BNP\n"
+								}
+							]
+						},
+						{
+							"name": "UpdateCourse",
+							"request": {
+								"method": "PUT",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GetInstructorCourses",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "GetInstructorCourses",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/courses/instructor/01JABCT3W4G5YQFF690N3M2MKG",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"courses",
+												"instructor",
+												"01JABCT3W4G5YQFF690N3M2MKG"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:59:06 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "353"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"instructor\": {\n        \"ID\": \"01JABCT3W4G5YQFF690N3M2MKG\",\n        \"name\": \"Sultan Nezihe Turhan\",\n        \"email\": \"nezihe@gsu.edu.tr\",\n        \"password\": \"hashed_password\",\n        \"expertise\": \"Computer Science\"\n    },\n    \"courses\": [\n        {\n            \"ID\": \"01JABDKH7X7P70KM9ZX5NW4BNP\",\n            \"title\": \"A good course\",\n            \"description\": \"A good course\",\n            \"registrydate\": \"2024-10-16T00:00:00Z\",\n            \"InstructorID\": \"01JABCT3W4G5YQFF690N3M2MKG\"\n        }\n    ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Instructors",
+					"item": [
+						{
+							"name": "GetInstructors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/instructors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"instructors"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetInstructors",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/instructors",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"instructors"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:26:51 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "192"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"ID\": \"01JABCPE11Q4CYXYF4772KMC7J\",\n        \"name\": \"Bengisu Altıntaş\",\n        \"email\": \"bengisu@gsu.edu.tr\",\n        \"password\": \"hashed_password\",\n        \"registrydate\": \"2024-10-16T22:25:53.569197Z\",\n        \"expertise\": \"Medicine\"\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "GetInstructor",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/instructors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"instructors"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetInstructor",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/instructors/01JABCPE11Q4CYXYF4772KMC7J",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"instructors",
+												"01JABCPE11Q4CYXYF4772KMC7J"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:27:03 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "190"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"ID\": \"01JABCPE11Q4CYXYF4772KMC7J\",\n    \"name\": \"Bengisu Altıntaş\",\n    \"email\": \"bengisu@gsu.edu.tr\",\n    \"password\": \"hashed_password\",\n    \"registrydate\": \"2024-10-16T22:25:53.569197Z\",\n    \"expertise\": \"Medicine\"\n}"
+								}
+							]
+						},
+						{
+							"name": "AddInstructor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\":         \"Bengisu\",\r\n    \"Email\":        \"bengisu@gsu.edu.tr\",\r\n    \"Password\":     \"hashed_password\",\r\n    \"AreaOfExpertise\": \"Medicine\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4040/instructors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"instructors"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "AddInstructor",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Name\":         \"Bengisu Altıntaş\",\r\n    \"Email\":        \"bengisu@gsu.edu.tr\",\r\n    \"Password\":     \"hashed_password\",\r\n    \"Expertise\": \"Medicine\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/instructors",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"instructors"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:25:53 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Inserted student with ID: 01JABCPE11Q4CYXYF4772KMC7J\n"
+								},
+								{
+									"name": "AddInstructor2",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Name\":         \"Sultan Nezihe\",\r\n    \"Email\":        \"nezihe@gsu.edu.tr\",\r\n    \"Password\":     \"hashed_password\",\r\n    \"Expertise\": \"Medicine\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/instructors",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"instructors"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:27:54 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Inserted student with ID: 01JABCT3W4G5YQFF690N3M2MKG\n"
+								}
+							]
+						},
+						{
+							"name": "UpdateInstructor",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/instructors/01JABCT3W4G5YQFF690N3M2MKG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"instructors",
+										"01JABCT3W4G5YQFF690N3M2MKG"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "UpdateInstructor",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Name\":         \"Sultan Nezihe Turhan\",\r\n    \"Email\":        \"nezihe@gsu.edu.tr\",\r\n    \"Password\":     \"hashed_password\",\r\n    \"Expertise\": \"Computer Science\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/instructors/01JABCT3W4G5YQFF690N3M2MKG",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"instructors",
+												"01JABCT3W4G5YQFF690N3M2MKG"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:28:28 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "52"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Updated student with ID: 01JABCT3W4G5YQFF690N3M2MKG\n"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Students",
+					"item": [
+						{
+							"name": "GetStudent",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/students/01JA8YY3SBJXC3ATS529Q5YSSH",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"students",
+										"01JA8YY3SBJXC3ATS529Q5YSSH"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetStudent",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/students/01JA8YY3SBJXC3ATS529Q5YSSH",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"students",
+												"01JA8YY3SBJXC3ATS529Q5YSSH"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 15 Oct 2024 20:55:04 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "160"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"ID\": \"01JA8YY3SBJXC3ATS529Q5YSSH\",\n    \"name\": \"Bengisu\",\n    \"email\": \"newstudent@example.com\",\n    \"password\": \"hashed_password\",\n    \"registrydate\": \"2024-10-15T23:46:56.299298Z\"\n}"
+								}
+							]
+						},
+						{
+							"name": "AddStudent",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\":         \"Bengisu\",\r\n    \"Email\":        \"newstudent@example.com\",\r\n    \"Password\":     \"hashed_password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4040/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"students"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "AddStudent",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Name\":         \"Bengisu\",\r\n    \"Email\":        \"newstudent@example.com\",\r\n    \"Password\":     \"hashed_password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/students",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"students"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Tue, 15 Oct 2024 20:46:56 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Inserted student with ID: 01JA8YY3SBJXC3ATS529Q5YSSH\n"
+								},
+								{
+									"name": "AddStudent2",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Name\":         \"Bengisu\",\r\n    \"Email\":        \"newstudent@example.com\",\r\n    \"Password\":     \"hashed_password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/students",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"students"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:14:47 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Inserted student with ID: 01JABC23ZCQDMS2A6TPF87FZZ1\n"
+								}
+							]
+						},
+						{
+							"name": "UpdateStudent",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\":         \"Bengisu\",\r\n    \"Email\":        \"bengisu@example.com\",\r\n    \"Password\":     \"new_password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4040/students/01JA8YY3SBJXC3ATS529Q5YSSH",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"students",
+										"01JA8YY3SBJXC3ATS529Q5YSSH"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "UpdateStudent",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"Name\":         \"Bengisu\",\r\n    \"Email\":        \"bengisu@example.com\",\r\n    \"Password\":     \"new_password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:4040/students/01JA8YY3SBJXC3ATS529Q5YSSH",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"students",
+												"01JA8YY3SBJXC3ATS529Q5YSSH"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:14:34 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "52"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "Updated student with ID: 01JA8YY3SBJXC3ATS529Q5YSSH\n"
+								}
+							]
+						},
+						{
+							"name": "DeleteStudent",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/students/01JA8YY3SBJXC3ATS529Q5YSSH",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"students",
+										"01JA8YY3SBJXC3ATS529Q5YSSH"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetStudents",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4040/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4040",
+									"path": [
+										"students"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "GetStudents",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:4040/students",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "4040",
+											"path": [
+												"students"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 16 Oct 2024 19:19:26 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "431"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"ID\": \"01JA8YY3SBJXC3ATS529Q5YSSH\",\n        \"name\": \"Bengisu\",\n        \"email\": \"bengisu@example.com\",\n        \"password\": \"new_password\"\n    },\n    {\n        \"ID\": \"01JABC23ZCQDMS2A6TPF87FZZ1\",\n        \"name\": \"Bengisu\",\n        \"email\": \"newstudent@example.com\",\n        \"password\": \"hashed_password\",\n        \"registrydate\": \"2024-10-16T22:14:47.916906Z\"\n    },\n    {\n        \"ID\": \"01JABC3ZD3R1TZQ7V5E0P70XWZ\",\n        \"name\": \"Bengisu\",\n        \"email\": \"bengisu@ogr.gsu.edu.tr\",\n        \"password\": \"hashed_password\",\n        \"registrydate\": \"2024-10-16T22:15:48.771837Z\"\n    }\n]"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
