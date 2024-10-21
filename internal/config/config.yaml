@@ -1,9 +1,10 @@
 app:
-  port: :4040
+  port: ":4040"
+
 db:
-  user: myuser
-  password: mypassword
-  ip: localhost
+  user: "myuser"
+  password: "mypassword"
+  ip: "db"  # This should be the name of the database service in your docker-compose.yml
   port: 5432
-  name: CoursePlatform
+  name: "CoursePlatform"
   active: true
