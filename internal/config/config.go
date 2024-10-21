@@ -8,6 +8,7 @@ import (
 	"gorm.io/gorm"
 	"log"
 	"os"
+	"time"
 )
 
 const CONFIG_PATH = "internal/config/config.yaml"
@@ -70,13 +71,25 @@ func (c *Conf) InitDatabase() *gorm.DB {
 	if c.DB.Active {
 		dbConnector := GetDbConnector(*c)
 
-		db, err = gorm.Open(postgres.Open(dbConnector.Connector()), &gorm.Config{})
-		if err != nil {
-			log.Fatal("Failed to connect to database:", err)
+		// Retry logic for database connection
+		for i := 0; i < 5; i++ { // Retry up to 5 times
+			db, err = gorm.Open(postgres.Open(dbConnector.Connector()), &gorm.Config{})
+			if err == nil {
+				break // Successfully connected
+			}
+			log.Printf("Failed to connect to database, retrying in 2 seconds...: %v", err)
+			time.Sleep(2 * time.Second) // Wait before retrying
 		}
 
-		db.AutoMigrate(&models.Student{}, &models.Course{}, &models.Enrollment{}, &models.Instructor{})
-		fmt.Println("Database connected!")
+		if err != nil {
+			log.Fatalf("Failed to connect to database after multiple attempts: %v", err)
+		}
+
+		err = db.AutoMigrate(&models.Student{}, &models.Course{}, &models.Enrollment{}, &models.Instructor{})
+		if err != nil {
+			log.Fatalf("Failed to migrate database: %v", err)
+		}
+		fmt.Println("Database connected and migrated!")
 		return db
 	}
 	return nil
