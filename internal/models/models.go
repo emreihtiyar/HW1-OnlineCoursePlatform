@@ -17,7 +17,7 @@ func GenerateULID() string {
 type Student struct {
 	ID           string     `gorm:"primaryKey"`
 	Name         string     `json:"name"`
-	Email        string     `json:"email"`
+	Email        string     `json:"email" gorm:"unique"`
 	Password     string     `json:"password"`
 	RegistryDate *time.Time `json:"registrydate,omitempty" gorm:"column:registrydate"`
 }
@@ -26,7 +26,7 @@ type Student struct {
 type Instructor struct {
 	ID           string     `gorm:"primaryKey"`
 	Name         string     `json:"name"`
-	Email        string     `json:"email"`
+	Email        string     `json:"email" gorm:"unique"`
 	Password     string     `json:"password"`
 	RegistryDate *time.Time `json:"registrydate,omitempty" gorm:"column:registrydate"`
 	Expertise    string     `json:"expertise" gorm:"column:areaofexpertise"`

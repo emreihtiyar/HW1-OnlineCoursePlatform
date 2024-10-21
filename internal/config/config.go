@@ -1,7 +1,6 @@
 package config
 
 import (
-	"HW1-OnlineCoursePlatform/internal/models"
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"gorm.io/driver/postgres"
@@ -85,11 +84,11 @@ func (c *Conf) InitDatabase() *gorm.DB {
 			log.Fatalf("Failed to connect to database after multiple attempts: %v", err)
 		}
 
-		err = db.AutoMigrate(&models.Student{}, &models.Course{}, &models.Enrollment{}, &models.Instructor{})
-		if err != nil {
-			log.Fatalf("Failed to migrate database: %v", err)
-		}
-		fmt.Println("Database connected and migrated!")
+		//err = db.AutoMigrate(&models.Student{}, &models.Course{}, &models.Enrollment{}, &models.Instructor{})
+		//if err != nil {
+		//	log.Fatalf("Failed to migrate database: %v", err)
+		//}
+		//fmt.Println("Database connected and migrated!")
 		return db
 	}
 	return nil

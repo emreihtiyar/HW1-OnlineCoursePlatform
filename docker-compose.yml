@@ -15,7 +15,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "myuser" ]
+      test: [ "CMD", "pg_isready", "-U", "CoursePlatform" ]
       interval: 10s
       timeout: 5s
       retries: 5
