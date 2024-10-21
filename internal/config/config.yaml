@@ -11,7 +11,7 @@ db:
 
 neo4j:
     user: "neo4j"
-    password: "mypassword
-    uri: "neo4j://neo4j:7687"
+    password: "mypassword"
+    uri: "neo4j://neo4j:mypassword@neo4j:7687"
     port: 7687
     active: true

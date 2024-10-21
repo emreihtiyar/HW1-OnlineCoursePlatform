@@ -43,7 +43,7 @@ type Conf struct {
 	Neo4j struct {
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
-		Ip       string `yaml:"ip"`
+		Uri      string `yaml:"uri"`
 		Port     int    `yaml:"port"`
 		Active   bool   `yaml:"active"`
 	} `yaml:"neo4j"`
@@ -102,18 +102,12 @@ func (c *Conf) InitDatabase() *gorm.DB {
 	return nil
 }
 
-func getNeo4jConnector() string {
-	return "neo4j://neo4j:your_password@neo4j:7687"
-}
-
-func (c *Conf) InitNeo4jDatabase() {
-	// Define your connection string
-	uri := getNeo4jConnector()
-
+func (c *Conf) InitNeo4jDatabase() neo4j.DriverWithContext {
 	// Create a Neo4j driver
-	driver, err := neo4j.NewDriverWithContext(uri, neo4j.BasicAuth("neo4j", "your_password", ""))
+	driver, err := neo4j.NewDriverWithContext(c.Neo4j.Uri, neo4j.BasicAuth(c.Neo4j.User, c.Neo4j.Password, ""))
 	if err != nil {
 		log.Fatalf("Failed to create driver: %v", err)
 	}
 	fmt.Println(driver)
+	return driver
 }
