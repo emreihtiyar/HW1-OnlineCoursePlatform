@@ -12,10 +12,10 @@ RUN go mod download
 COPY . .
 
 # Build the Go application
-RUN go build -o myapp .
+RUN CGO_ENABLE=1 go build -o myapp .
 
 # Use a minimal image to run the application
-FROM postgres:17-alpine
+FROM scratch
 
 WORKDIR /app
 
