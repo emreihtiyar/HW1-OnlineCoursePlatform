@@ -8,9 +8,15 @@ import (
 
 var db *gorm.DB
 
+// var neo4jDriver neo4j.Driver
+
 // TODO: Don't know if this is okay
+// Will change the name of this function and the parameter.
+// If dbInit is nil, then it will initialize neo4j driver.
+// Also, GetById will include a if check based on the driver type.
 func InitPostgresHandler(dbInit *gorm.DB) {
 	db = dbInit
+	// neo4jDriver = neo4jDriverInit
 }
 
 // GetById returns the entity with the given ID.
