@@ -1,5 +1,4 @@
 # Use the official Golang image to build the application
-# Use the official Golang image to build the application
 FROM golang:1.22.5-alpine AS builder
 
 WORKDIR /app
@@ -25,8 +24,33 @@ COPY --from=builder /app/myapp .
 # Copy the config.yaml into the container
 COPY internal/config/config.yaml ./internal/config/
 
-# Expose the application port
-EXPOSE 4040
+# Use a separate stage to create a smaller image
+FROM debian:bullseye
 
-# Start the application
-CMD ["./myapp"]
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y wget && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Neo4j
+RUN wget -O neo4j.deb https://neo4j.com/artifact/binary/neo4j-community-5.24.2-unix.tar.gz && \
+    tar -xvf neo4j-community-5.24.2-unix.tar.gz && \
+    mv neo4j-community-5.24.2 /usr/local/neo4j && \
+    rm neo4j.deb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set environment variables for Neo4j
+ENV NEO4J_HOME=/usr/local/neo4j
+ENV PATH="$NEO4J_HOME/bin:$PATH"
+
+# Copy the built binary from the builder stage
+COPY --from=builder /app/myapp /usr/local/bin/myapp
+
+# Expose the ports
+EXPOSE 4040
+EXPOSE 7474 7687 7473
+
+# Command to run the application
+CMD ["myapp"]

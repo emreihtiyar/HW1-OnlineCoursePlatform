@@ -7,4 +7,11 @@ db:
   ip: "db"  # This should be the name of the database service in your docker-compose.yml
   port: 5432
   name: "CoursePlatform"
-  active: true
+  active: false
+
+neo4j:
+    user: "neo4j"
+    password: "mypassword
+    uri: "neo4j://neo4j:7687"
+    port: 7687
+    active: true

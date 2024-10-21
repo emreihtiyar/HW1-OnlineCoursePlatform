@@ -9,7 +9,11 @@ import (
 func main() {
 	var conf config.Conf
 	conf.GetConf()
-	db := conf.InitDatabase()
-	handlers.InitPostgresHandler(db)
+	if conf.DB.Active {
+		db := conf.InitDatabase()
+		handlers.InitPostgresHandler(db)
+	} else {
+		handlers.InitNeo4jHandler(&conf)
+	}
 	web.Routes(&conf)
 }
