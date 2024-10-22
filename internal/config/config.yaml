@@ -8,3 +8,12 @@ db:
   port: 5432
   name: "CoursePlatform"
   active: true
+
+neo4j:
+    user: "neo4j"
+    password: "mypassword"
+    # Change uriDocker to uri in order to utilize docker.
+    uriDocker: "neo4j://neo4j:mypassword@neo4j:7687"
+    uri: "neo4j://localhost:7687"
+    port: 7687
+    active: false

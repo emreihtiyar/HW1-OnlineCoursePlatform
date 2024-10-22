@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"github.com/neo4j/neo4j-go-driver/v5/neo4j"
 	"gopkg.in/yaml.v3"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -39,6 +40,13 @@ type Conf struct {
 		DbName   string `yaml:"name"`
 		Active   bool   `yaml:"active"`
 	} `yaml:"db"`
+	Neo4j struct {
+		User     string `yaml:"user"`
+		Password string `yaml:"password"`
+		Uri      string `yaml:"uri"`
+		Port     int    `yaml:"port"`
+		Active   bool   `yaml:"active"`
+	} `yaml:"neo4j"`
 }
 
 // GetDbConnector function to extract DbConnector from Conf
@@ -92,4 +100,14 @@ func (c *Conf) InitDatabase() *gorm.DB {
 		return db
 	}
 	return nil
+}
+
+func (c *Conf) InitNeo4jDatabase() neo4j.DriverWithContext {
+	// Create a Neo4j driver
+	driver, err := neo4j.NewDriverWithContext(c.Neo4j.Uri, neo4j.BasicAuth(c.Neo4j.User, c.Neo4j.Password, ""))
+	if err != nil {
+		log.Fatalf("Failed to create driver: %v", err)
+	}
+	fmt.Println(driver)
+	return driver
 }

@@ -54,3 +54,39 @@ type InstructorCourses struct {
 	Instructor Instructor `json:"instructor"`
 	Courses    []Course   `json:"courses"`
 }
+
+// Neo4jStudent represents the student node in Neo4j
+type Neo4jStudent struct {
+	ID           string     `json:"id"`
+	Name         string     `json:"name"`
+	Email        string     `json:"email"`
+	Password     string     `json:"password"`
+	RegistryDate *time.Time `json:"registryDate"`
+}
+
+// Neo4jInstructor represents the instructor node in Neo4j
+type Neo4jInstructor struct {
+	ID           string     `json:"id"`
+	Name         string     `json:"name"`
+	Email        string     `json:"email"`
+	Password     string     `json:"password"`
+	RegistryDate *time.Time `json:"registryDate"`
+	Expertise    string     `json:"expertise"`
+}
+
+// Neo4jCourse represents the course node in Neo4j
+type Neo4jCourse struct {
+	ID          string     `json:"id"`
+	Title       string     `json:"title"`
+	Description string     `json:"description"`
+	Date        *time.Time `json:"date"`
+}
+
+// Neo4jEnrollment represents the enrollment relationship in Neo4j
+type Neo4jEnrollment struct {
+	ID             string     `json:"id"`
+	StudentID      string     `json:"studentId"`
+	CourseID       string     `json:"courseId"`
+	EnrollmentDate *time.Time `json:"enrollmentDate"`
+	Grade          int        `json:"grade"`
+}

@@ -15,7 +15,22 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "CoursePlatform" ]
+      test: [ "CMD", "pg_isready", "-U", "myuser" ]  # Updated user name to match your env
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  neo4j:
+    image: neo4j:5.24.2-community-bullseye
+    container_name: neo4j_db
+    restart: always
+    environment:
+      NEO4J_AUTH: neo4j/mypassword  # Change this to your desired Neo4j password
+    ports:
+      - "7687:7687"  # Bolt protocol
+      - "7474:7474"  # HTTP API
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:7474/ || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -28,6 +43,15 @@ services:
       - "4040:4040"
     depends_on:
       - db
+      - neo4j
+    environment:
+      - DB_HOST=db
+      - DB_USER=myuser
+      - DB_PASSWORD=mypassword
+      - DB_NAME=CoursePlatform
+      - NEO4J_URI=neo4j://neo4j:7687
+      - NEO4J_USERNAME=neo4j
+      - NEO4J_PASSWORD=mypassword  # Same as NEO4J_AUTH
 
 volumes:
   pg_data:
