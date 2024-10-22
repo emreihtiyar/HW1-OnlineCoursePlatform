@@ -96,6 +96,7 @@ func GetStudentByID(id string) (*models.Student, error) {
 			if err != nil {
 				return nil, err
 			}
+
 			if result.Next(context.Background()) {
 				record := result.Record()
 				studentMap, exists := record.Get("student")
@@ -103,19 +104,35 @@ func GetStudentByID(id string) (*models.Student, error) {
 					return nil, fmt.Errorf("student with ID %s not found", id)
 				}
 
-				// Use type assertion to extract the fields
-				studentProps := studentMap.(neo4j.Node).Props
+				// studentMap is a map[string]interface{} containing node properties
+				props := studentMap.(map[string]interface{})
 
-				student = &models.Student{
-					ID:           studentProps["ID"].(string),
-					Name:         studentProps["Name"].(string),
-					Email:        studentProps["Email"].(string),
-					Password:     studentProps["Password"].(string),
-					RegistryDate: (*time.Time)(studentProps["RegistryDate"].(*neo4j.Date)), // Adjust the type as necessary
+				// Convert RegistryDate to *time.Time if it's a dbtype.Date or dbtype.LocalDateTime
+				var registryDate *time.Time
+
+				// Parse the string into a time.Time object
+				layout := time.RFC3339
+				parsedTime, err := time.Parse(layout, props["RegistryDate"].(string))
+				if err != nil {
+					return nil, fmt.Errorf("Error parsing time:", err)
 				}
-				return nil, nil
+
+				// Convert to *time.Time
+				registryDate = &parsedTime
+
+				// Populate the student struct
+				student = &models.Student{
+					ID:           props["ID"].(string),
+					Name:         props["Name"].(string),
+					Email:        props["Email"].(string),
+					Password:     props["Password"].(string),
+					RegistryDate: registryDate,
+				}
+
+				return student, nil
 			}
-			return nil, nil
+
+			return nil, fmt.Errorf("student with ID %s not found", id)
 		})
 	})
 
@@ -199,7 +216,6 @@ func getNeo4jById(id string, entityName string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("unsupported entity: %s", entityName)
 	}
-	return nil, nil
 }
 
 func GetAll(entity interface{}) error {
@@ -212,11 +228,50 @@ func GetAll(entity interface{}) error {
 
 // Insert function to add a new record to the database
 func Insert(entity interface{}) error {
+	if db != nil {
+		return insertPostgres(entity)
+	}
+	return addStudentNeo4j(entity.(models.Student))
+}
+
+func insertPostgres(entity interface{}) error {
 	result := db.Create(entity)
 	if result.Error != nil {
 		return result.Error
 	}
 	return nil
+}
+
+func addStudentNeo4j(student models.Student) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Convert *time.Time to a string if RegistryDate is not nil
+	var registryDate string
+	if student.RegistryDate != nil {
+		registryDate = student.RegistryDate.Format(time.RFC3339) // Convert to ISO 8601 string
+	}
+
+	_, err := withSession(func(session neo4j.SessionWithContext) (interface{}, error) {
+		query := `
+            CREATE (s:Student {ID: $id, Name: $name, Email: $email, Password: $password, RegistryDate: $registryDate})
+            RETURN s`
+
+		return session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (interface{}, error) {
+			// Run the query with parameters
+			_, err := tx.Run(ctx, query, map[string]any{
+				"id":           student.ID,
+				"name":         student.Name,
+				"email":        student.Email,
+				"password":     student.Password,
+				"registryDate": registryDate, // String date format passed here
+			})
+
+			return nil, err
+		})
+	})
+
+	return err
 }
 
 // Update function to update a record in the database
